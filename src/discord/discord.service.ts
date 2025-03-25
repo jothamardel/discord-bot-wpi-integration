@@ -1,4 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
 import { DiscordConfig } from 'types';
 import {
@@ -14,8 +15,8 @@ import {
 export class DiscordService implements OnModuleInit {
   private client: DiscordConfig;
   private pingCommand = data;
-  private readonly discordChannelId = process.env.DISCORD_CHANNEL_ID;
-  constructor() {
+  // private readonly discordChannelId = process.env.DISCORD_CHANNEL_ID;
+  constructor(private configService: ConfigService) {
     this.client = new Client({
       intents: [
         GatewayIntentBits.Guilds,
@@ -45,7 +46,7 @@ export class DiscordService implements OnModuleInit {
     //     await message.reply('Pong!');
     //   }
     // });
-    this.client.login(process.env.DISCORD_TOKEN).catch((err) => {
+    this.client.login(this.configService.get('DISCORD_TOKEN')).catch((err) => {
       console.error('Failed to log in:', err);
     });
   }
