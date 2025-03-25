@@ -48,6 +48,7 @@ export async function sendWhatsappMessage({
       indexValue++;
     } catch (error) {
       console.error(error.response.data);
+      clearInterval(intervalId);
       return;
     }
   }, 20000); // 20 seconds
