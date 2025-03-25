@@ -45,6 +45,8 @@ export class DiscordService implements OnModuleInit {
     //     await message.reply('Pong!');
     //   }
     // });
-    this.client.login();
+    this.client.login(process.env.DISCORD_TOKEN).catch((err) => {
+      console.error('Failed to log in:', err);
+    });
   }
 }
