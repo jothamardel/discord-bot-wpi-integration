@@ -1,5 +1,6 @@
 import { REST, Routes } from 'discord.js';
-import 'dotenv/config';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 

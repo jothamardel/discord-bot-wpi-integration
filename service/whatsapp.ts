@@ -1,5 +1,9 @@
-import 'dotenv/config';
 import axios from 'axios';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+console.log('Token: ', process.env.WAAPI_TOKEN);
+console.log('Instance: ', process.env.WAAPI_INSTANCE);
 
 const axiosInstance = axios.create({
   headers: {
