@@ -47,7 +47,7 @@ export async function sendWhatsappMessage({
       console.log(response.data);
       indexValue++;
     } catch (error) {
-      console.error(error.response.data);
+      console.error(error.response);
       clearInterval(intervalId);
       return;
     }
