@@ -16,36 +16,25 @@ const axiosInstance = axios.create({
 
 export async function sendWhatsappMessage({
   message,
-  receipient = [
-    '2347033680280',
-    '2348064581905',
-    '2347089898766',
-    '2347074068911',
-    '2347060727649',
-    '2347062883534',
-    '2348065844484',
-    '2347036088996',
-    '2348069672917',
-    '2347018084869',
-  ],
+  recipient = ['2349015537247', '2348150247631', '2348105742280'],
 }: {
-  receipient?: string[];
+  recipient?: string[];
   message: string;
 }) {
   let indexValue = 0;
 
   const intervalId = setInterval(async () => {
-    if (indexValue >= receipient.length) {
+    if (indexValue >= recipient.length) {
       clearInterval(intervalId);
       return;
     }
 
-    const currentReceipient = receipient[indexValue];
-    console.log({ currentReceipient, indexValue });
+    const currentRecipient = recipient[indexValue];
+    console.log({ currentRecipient, indexValue });
 
     try {
       const response = await axiosInstance.post('/', {
-        chatId: `${currentReceipient}@c.us`,
+        chatId: `${currentRecipient}@c.us`,
         message: `This message is from discord: ${message ?? 'Hello'}`,
       });
       console.log(response.data);
@@ -57,3 +46,17 @@ export async function sendWhatsappMessage({
     }
   }, 20000); // 20 seconds
 }
+/*
+recipient = [
+  '2347033680280',
+  '2348064581905',
+  '2347089898766',
+  '2347074068911',
+  '2347060727649',
+  '2347062883534',
+  '2348065844484',
+  '2347036088996',
+  '2348069672917',
+  '2347018084869',
+]
+*/
