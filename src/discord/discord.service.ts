@@ -9,8 +9,6 @@ import {
   interactionCreate,
   executeNotification,
   notifyData,
-  alertData,
-  alertExecute,
 } from 'utils';
 
 @Injectable()
@@ -36,10 +34,6 @@ export class DiscordService implements OnModuleInit {
     this.client.commands.set(notifyData.name, {
       data: notifyData,
       execute: executeNotification,
-    });
-    this.client.commands.set(alertData.name, {
-      data: alertData,
-      execute: alertExecute,
     });
   }
   async onModuleInit() {

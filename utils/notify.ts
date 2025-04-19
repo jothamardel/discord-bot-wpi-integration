@@ -1,22 +1,30 @@
-import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, MessageFlags } from 'discord.js';
+import { sendWhatsappMessage } from 'service';
 
 export const notifyData = new SlashCommandBuilder();
-const embed = new EmbedBuilder()
-  .setColor('Blue')
-  .setDescription('Notification ');
 
-notifyData.setName('notify').setDescription('Notify users');
+notifyData
+  .setName('notify')
+  .setDescription('Notify users')
+  .addStringOption((option) =>
+    option
+      .setName('message')
+      .setDescription('message to send with notification')
+      .setRequired(true),
+  );
 
 export async function executeNotification(interaction: any) {
-  await interaction.deferReply();
+  if (!interaction.isChatInputCommand()) {
+    return;
+  }
+  await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
+  const message = interaction.options.getString('message');
   try {
-    embed.setTitle('Important Updates').setDescription('Unlock APIs');
-    await interaction.editReply({
-      embeds: [embed],
-    });
+    await sendWhatsappMessage({ message });
+    await interaction.editReply('Message sent successfully');
   } catch (error) {
     console.error(error);
-    await interaction.editReply(embed);
+    await interaction.editReply('An error occured while notifying recipients');
   }
 }

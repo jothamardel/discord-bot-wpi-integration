@@ -16,11 +16,23 @@ const axiosInstance = axios.create({
 
 export async function sendWhatsappMessage({
   message,
-  recipient = ['2349015537247', '2348150247631', '2348105742280'],
+  recipient = [
+    '2347033680280',
+    '2348064581905',
+    '2347089898766',
+    '2347074068911',
+    '2347060727649',
+    '2347062883534',
+    '2348065844484',
+    '2347036088996',
+    '2348069672917',
+    '2347018084869',
+  ],
 }: {
   recipient?: string[];
   message: string;
 }) {
+  // TODO: find better way to get recipients
   let indexValue = 0;
 
   const intervalId = setInterval(async () => {
@@ -40,23 +52,9 @@ export async function sendWhatsappMessage({
       console.log(response.data);
       indexValue++;
     } catch (error) {
-      console.error(error.response);
       clearInterval(intervalId);
+      throw error;
       return;
     }
   }, 20000); // 20 seconds
 }
-/*
-recipient = [
-  '2347033680280',
-  '2348064581905',
-  '2347089898766',
-  '2347074068911',
-  '2347060727649',
-  '2347062883534',
-  '2348065844484',
-  '2347036088996',
-  '2348069672917',
-  '2347018084869',
-]
-*/
