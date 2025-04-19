@@ -1,5 +1,3 @@
-import { sendWhatsappMessage } from 'service';
-
 export async function interactionCreate(interaction: any) {
   if (!interaction.isChatInputCommand()) return;
   const command = interaction.client.commands.get(interaction.commandName);
@@ -10,9 +8,6 @@ export async function interactionCreate(interaction: any) {
     console.log(
       `Command: ${interaction.commandName} executed by user: ${interaction.user.username}`,
     );
-    await sendWhatsappMessage({
-      message: `Command: ${interaction.commandName} executed by user: ${interaction.user.username}`,
-    });
   } catch (error) {
     console.error(error);
     if (interaction.deferred || interaction.replied) {
