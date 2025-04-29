@@ -3,6 +3,8 @@ import { sendWhatsappMessage } from 'service';
 
 export const notifyData = new SlashCommandBuilder();
 
+const authorizedUsers = ['whimsical_kiwi_18392', 'perez_human'];
+
 notifyData
   .setName('notify')
   .setDescription('Notify users')
@@ -18,6 +20,10 @@ export async function executeNotification(interaction: any) {
     return;
   }
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+
+  if (!authorizedUsers.includes(interaction.user.username)) {
+    await interaction.editReply('You are unauthorized to use this command');
+  }
 
   const message = interaction.options.getString('message');
   try {
