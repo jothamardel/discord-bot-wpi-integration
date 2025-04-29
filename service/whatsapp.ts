@@ -49,5 +49,5 @@ export async function sendWhatsappMessage({
       throw error;
       return;
     }
-  }, 20000); // 20 seconds
+  }, 5000); // 5 seconds
 }
