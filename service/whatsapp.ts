@@ -15,17 +15,17 @@ const axiosInstance = axios.create({
   baseURL: `https://waapi.app/api/v1/instances/${process.env.WAAPI_INSTANCE}/client/action/send-message`,
 });
 
-const recipients = getParticipants();
-console.log(recipients);
-
 export async function sendWhatsappMessage({
   message,
-  recipient = recipients,
+  recipient,
 }: {
   recipient?: string[];
   message: string;
 }) {
-  // TODO: find better way to get recipients
+  if (!recipient) {
+    recipient = await getParticipants();
+    console.log(`No of recipients: ${recipient.length}`);
+  }
   let indexValue = 0;
 
   const intervalId = setInterval(async () => {
@@ -49,5 +49,5 @@ export async function sendWhatsappMessage({
       throw error;
       return;
     }
-  }, 20000); // 20 seconds
+  }, 5000); // 5 seconds
 }
